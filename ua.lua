@@ -126,6 +126,9 @@ percent_encode_url = function(url)
 end
 
 queue_url = function(urls_queue, url)
+  if string.match(url, "^https?://[^/]+%.ua/") then
+    queue_new_urls(url)
+  end
   url = percent_encode_url(url)
   url = string.match(url, "^([^{]+)")
   url = string.match(url, "^([^<]+)")
@@ -493,7 +496,7 @@ wget.callbacks.finish = function(start_time, end_time, wall_time, numurls, total
     io.stdout:flush()
     local newurls = nil
     for url, _ in pairs(items_data) do
-      io.stdout:write("Queuing URL " .. url .. ".\n")
+      --io.stdout:write("Queuing URL " .. url .. ".\n")
       io.stdout:flush()
       if newurls == nil then
         newurls = url
