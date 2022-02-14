@@ -65,7 +65,7 @@ if not WGET_AT:
 #
 # Update this each time you make a non-cosmetic change.
 # It will be added to the WARC files and reported to the tracker.
-VERSION = '20220214.03'
+VERSION = '20220214.04'
 TRACKER_ID = 'ua'
 TRACKER_HOST = 'legacy-api.arpa.li'
 MULTI_ITEM_SIZE = 40
@@ -251,7 +251,7 @@ class WgetArgs(object):
     @classmethod
     def patterns(cls):
         current_time = time.time()
-        if current_time - cls.PATTERNS_TIME > 300:
+        if current_time - cls.PATTERNS_TIME > 30:
             response = requests.get('https://raw.githubusercontent.com/ArchiveTeam/ua-config/master/patterns.txt')
             assert response.status_code == 200 and len(response.content) > 0
             cls.PATTERNS = []
