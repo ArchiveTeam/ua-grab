@@ -65,7 +65,7 @@ if not WGET_AT:
 #
 # Update this each time you make a non-cosmetic change.
 # It will be added to the WARC files and reported to the tracker.
-VERSION = '20220214.02'
+VERSION = '20220214.03'
 TRACKER_ID = 'ua'
 TRACKER_HOST = 'legacy-api.arpa.li'
 MULTI_ITEM_SIZE = 40
@@ -256,6 +256,8 @@ class WgetArgs(object):
             assert response.status_code == 200 and len(response.content) > 0
             cls.PATTERNS = []
             for s in response.text.splitlines():
+                if s.strip().startswith("#") or s.strip() == "":
+                    continue
                 prob, pattern = s.strip().split(';', 1)
                 cls.PATTERNS.append((float(prob), pattern))
             cls.PATTERNS_TIME = current_time
