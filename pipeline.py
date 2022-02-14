@@ -65,10 +65,10 @@ if not WGET_AT:
 #
 # Update this each time you make a non-cosmetic change.
 # It will be added to the WARC files and reported to the tracker.
-VERSION = '20220214.04'
+VERSION = '20220214.05'
 TRACKER_ID = 'ua'
 TRACKER_HOST = 'legacy-api.arpa.li'
-MULTI_ITEM_SIZE = 40
+MULTI_ITEM_SIZE = 80
 
 ###########################################################################
 # This section defines project-specific tasks.
@@ -267,7 +267,7 @@ class WgetArgs(object):
         with open('user-agents.txt', 'r') as f:
             USER_AGENT = random.choice(list(f)).strip()
         wget_args = [
-            'timeout', '1000',
+            'timeout', '2000',
             WGET_AT,
             '-U', USER_AGENT,
             '-v',
