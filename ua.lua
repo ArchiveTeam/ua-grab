@@ -519,6 +519,7 @@ wget.callbacks.finish = function(start_time, end_time, wall_time, numurls, total
     io.stdout:write("Queuing URLs for " .. name .. ".\n")
     io.stdout:flush()
     local newurls = nil
+    local count = 0
     for url, _ in pairs(items_data) do
       --io.stdout:write("Queuing URL " .. url .. ".\n")
       io.stdout:flush()
@@ -526,6 +527,12 @@ wget.callbacks.finish = function(start_time, end_time, wall_time, numurls, total
         newurls = url
       else
         newurls = newurls .. "\0" .. url
+      end
+      count = count + 1
+      if count == 100 then
+        submit_backfeed(newurls, key)
+        newurls = nil
+        count = 0
       end
     end
     if newurls ~= nil then
