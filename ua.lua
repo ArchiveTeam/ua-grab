@@ -126,7 +126,8 @@ percent_encode_url = function(url)
 end
 
 queue_url = function(urls_queue, url)
-  if string.match(url, "^https?://[^/]+%.ua/") then
+  if string.match(url, "^https?://[^/]+%.ua/")
+    or string.match(url, "^https?://[^/]+%.xn%-%-j1amh/") then
     queue_new_urls(url)
   end
   url = percent_encode_url(url)
@@ -250,7 +251,8 @@ wget.callbacks.download_child_p = function(urlpos, parent, depth, start_url_pars
     url = url .. "/"
   end
 
-  if string.match(url, "^https?://[^/]+%.ua/") then
+  if string.match(url, "^https?://[^/]+%.ua/")
+    or string.match(url, "^https?://[^/]+%.xn%-%-j1amh/") then
     queue_url(queued_urls, url)
   else
     queue_url(queued_outlinks, url)
